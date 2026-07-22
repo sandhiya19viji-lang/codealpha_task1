@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<header>
+
+<h1>🛒 Shopping Cart</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="products.html">Products</a>
+
+</nav>
+
+</header>
+
+<section class="featured">
+
+<h2>Your Cart</h2>
+
+<div id="cartItems" class="products"></div>
+
+<h2 id="total"></h2>
+<a href="checkout.html">
+<button style="margin-top:20px;">Proceed to Checkout</button>
+</a>
+
+</section>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let html = "";
+
+let total = 0;
+
+cart.forEach(item => {
+
+let image = "";
+
+if(item.name === "Dell Inspiron 15"){
+    image = "images/laptop.jpg";
+}
+else if(item.name === "Wireless Headphones"){
+    image = "images/headphones.jpg";
+}
+else{
+    image = "images/watch.jpg";
+}
+
+html += `
+<div class="card">
+
+<img src="${image}" alt="${item.name}" style="width:180px;height:180px;object-fit:cover;border-radius:10px;">
+
+<h3>${item.name}</h3>
+
+<p>₹${item.price}</p>
+
+</div>
+`;
+
+total += item.price;
+
+});
+
+document.getElementById("cartItems").innerHTML = html;
+
+document.getElementById("total").innerHTML = "Total : ₹" + total;
+
+</script>
+
+</body>
+</html>

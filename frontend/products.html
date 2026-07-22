@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - CodeAlpha Store</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>🛒 CodeAlpha Store</h1>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+    </nav>
+</header>
+
+<section class="featured">
+
+    <h2>Our Products</h2>
+
+    <div class="products">
+
+        <div class="card">
+            <img src="images/laptop.jpg" alt="Laptop">
+            <h3>Dell Inspiron 15</h3>
+            <p>₹55,000</p>
+            <button onclick="addToCart('Dell Inspiron 15',55000)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="images/headphones.jpg" alt="Headphones">
+            <h3>Wireless Headphones</h3>
+            <p>₹2,999</p>
+            <button onclick="addToCart('Wireless Headphones',2999)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="images/watch.jpg" alt="Smart Watch">
+            <h3>Smart Watch</h3>
+            <p>₹4,999</p>
+            <button onclick="addToCart('Smart Watch',4999)">Add to Cart</button>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+function addToCart(name, price) {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Product Added Successfully!");
+
+}
+</script>
+
+</body>
+</html>

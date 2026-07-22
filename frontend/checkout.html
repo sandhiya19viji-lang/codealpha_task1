@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<header>
+
+<h1>🛒 Checkout</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="products.html">Products</a>
+
+<a href="cart.html">Cart</a>
+
+</nav>
+
+</header>
+
+<div class="login-container">
+
+<h2>Checkout</h2>
+
+<form id="checkoutForm">
+
+<input type="text" id="name" placeholder="Full Name" required>
+
+<input type="text" id="address" placeholder="Address" required>
+
+<input type="text" id="phone" placeholder="Phone Number" required>
+
+<button type="submit">
+
+Place Order
+
+</button>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("checkoutForm").addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let total=0;
+
+cart.forEach(item=>{
+
+total+=item.price;
+
+});
+
+const response=await fetch("http://localhost:5000/api/orders",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+name:document.getElementById("name").value,
+
+address:document.getElementById("address").value,
+
+phone:document.getElementById("phone").value,
+
+items:cart,
+
+total:total
+
+})
+
+});
+
+const data=await response.json();
+
+if(response.ok){
+
+alert("🎉 Order Placed Successfully!");
+
+localStorage.removeItem("cart");
+
+window.location.href="orders.html";
+
+}else{
+
+alert(data.message);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
